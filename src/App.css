@@ -1,11 +1,6 @@
 .App {
   /* text-align: center; */
-  font-family: 'Times New Roman', Times, serif;
-}
-
-
-* {
-  /*font-family: 'Times New Roman', Times, serif;*/
+  font: normal normal 600 18px/22px Montserrat;
 }
 
 .App-logo {
