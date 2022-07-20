@@ -1,6 +1,10 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 function Header() {
+    let url = window.location.href;
+    url = url.slice(0, -1);
+
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-light">
@@ -33,29 +37,31 @@ function Header() {
                                 </li>
                                 
                                 <li className = "nav-item mx-4"> {/* Wish List */}
-                                    <a className = "nav-link" href="#" >
+                                    <a className = "nav-link" href = { url + "/wishlist" } >
                                         MY WISHLIST
                                     </a>
                                 </li>
 
                                 <li className = "nav-item mx-4"> {/* Shopping Cart */}
-                                    <a className = "nav-link" href = "#" >
+                                    <a className = "nav-link" href = { url + "/cart" }>
                                         <img src = './images/shopping-cart.png'
-                                        width = {24}
-                                        height = {23}
-                                        alt = "logo"/>
+                                             width = {24}
+                                             height = {23}
+                                             alt = "logo" />
+                                        <div>
+                                            {/* <Link to = "/cart">Cart</Link> */}
+                                        </div>
                                     </a>
                                 </li>
 
                                 <li className="nav-item mx-4"> {/* Profile */}
-                                    <a className="nav-link" href="#" >
+                                    <a className="nav-link" href= { url + "/profile" } >
                                         <img src = './images/profile.png'
                                         width = {24}
                                         height = {24}
                                         alt = "logo"/>
                                     </a>
                                 </li>
-
                             </ul>
                         </div>
                     </div>
