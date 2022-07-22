@@ -83,7 +83,7 @@ function AllCourses( {addElement, cartItems} ) {
             </div>
 
             {/* Courses */}
-            <div className='row'>
+            <div className='row mx-2'>
                 <div className='col-9'>
                     {
                         Records && Records.slice((PER_PAGE * (pgIndx - 1)), Math.min(PER_PAGE * pgIndx, Records.length))
@@ -91,7 +91,7 @@ function AllCourses( {addElement, cartItems} ) {
                             return(
                                 <div className='row' key={record.id}>
                                     <div className='col-12'>
-                                        <div className='row'>
+                                        <div className='row py-2'>
                                             <div className='col-12'>
                                                 <div className='row'>
                                                     <div className='col-1 bg-light'>
@@ -146,7 +146,7 @@ function AllCourses( {addElement, cartItems} ) {
                 <div className='col-3 px-4'>
                     <h5 className='text-center'>Your Cart Details</h5>
 
-                    {cartItems.map(item => (
+                    {cartItems.slice(0, 4).map(item => (
                         <div className='row border-bottom' key={item.id}>
                             <div className='col-2'>
                                 <div className='p-4 bg-light'>
@@ -165,7 +165,7 @@ function AllCourses( {addElement, cartItems} ) {
             </div>
 
             {/* Pagination */}
-            <div>
+            <div className='bg-light '>
                 {Array.from(Array(noOfPages), (e, i) => {
                     return (<span key={i + 1} onClick = {() => setPgIndx(i+1) } > {i+1} </span>)
                 })}

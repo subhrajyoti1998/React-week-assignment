@@ -1,17 +1,35 @@
 import React from 'react'
 import { useState } from 'react';
 
-function MyCartItem( { setCartItems, cartItems } ) {
+function MyCartItem( { setCartItems, cartItems, totalAmount } ) {
     /*let removeFromCart = (item) => {
         let updatedCart = cartItems.filter((record) => record.id !== item.id);
         setCartItems(updatedCart);
         //setTotalPrice(prev => prev - parseFloat(item.discounted_price || item.actual_price));
     }*/
 
+    /*let totalAmount = () => {
+        let amount = 0.0;
+        cartItems.forEach(item => {
+            amount += parseFloat(item.discounted_price || item.actual_price);
+        });
+        return amount;
+    }*/
+
+    //const [totalAmount, setTotalAmount] = useState();
+    // const totalAmount = () => {
+    //     return Object.values(cartItems)
+    //                  .reduce((total, value) => total + value, 0);
+    // }
+
     const removeFromCart = (item) => {
         setCartItems(cartItems.filter(record => {
-                return record.id !== item.id;
-            }))
+            return record.id !== item.id;
+        }))
+    };
+
+    const removeAllIetmsFromCart = () => {
+        setCartItems([]);
     };
 
     return (
@@ -33,7 +51,7 @@ function MyCartItem( { setCartItems, cartItems } ) {
                     {
                         cartItems && cartItems.map( record => {
                             return(
-                                <div className='row' key={record.id}>
+                                <div className='row py-2' key={record.id}>
                                     <div className='col-12'>
                                         <div className='row'>
                                             <div className='col-12'>
@@ -81,7 +99,22 @@ function MyCartItem( { setCartItems, cartItems } ) {
                 </div>
 
                 <div className='col-3 px-4'>
-                    { /*totalPrice */ }
+                    <div className='row'>
+                        <div className='col text-bold text-left'>
+                            Total Amount <br /> <br />
+                        </div>
+                    </div>
+                    <div className='row'>
+                        <div className='col text-bold text-left'>
+                            RS - { totalAmount() } /- <br /> <br />
+                        </div>
+                    </div>
+                    <div className='row text-right'>
+                        <button className='btn btn-md app-btn text-bold'
+                                onClick={ removeAllIetmsFromCart }>
+                            Checkout
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
