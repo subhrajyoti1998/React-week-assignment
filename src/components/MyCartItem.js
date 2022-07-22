@@ -106,7 +106,7 @@ function MyCartItem( { setCartItems, cartItems, totalAmount } ) {
                     </div>
                     <div className='row'>
                         <div className='col text-bold text-left'>
-                            RS - { totalAmount() } /- <br /> <br />
+                            RS- { totalAmount() } /- <br /> <br />
                         </div>
                     </div>
                     <div className='row text-right'>

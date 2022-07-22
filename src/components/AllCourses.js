@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 
 const PER_PAGE = 5;
 
-function AllCourses( {addElement, cartItems} ) {
+function AllCourses( {addElement, cartItems, totalAmount} ) {
 
     /*const [currentPage, setCurrentPage] = useState(0);
     const [data, setData] = useState([]);
@@ -95,7 +95,7 @@ function AllCourses( {addElement, cartItems} ) {
                                             <div className='col-12'>
                                                 <div className='row'>
                                                     <div className='col-1 bg-light'>
-                                                        { record.id }
+                                                        
                                                     </div>
                                                     <div className='col-3 font-weight-bold'>
                                                         { record.title }
@@ -162,12 +162,34 @@ function AllCourses( {addElement, cartItems} ) {
                     ))}
                     
                 </div>
+
+                {/* Go to Cart Button and Total Amount Section */ }
+                <div className='row p-2'>
+                    <div className='col-9 px-4'>
+                        <div className=''>
+                        </div>
+                    </div>
+                    <div className='col-3 text-start'>
+                        Total Cart Value 
+                    </div>
+                </div>
+                <div className='row p-2'>
+                    <div className='col-10 text-end px-4'>
+                        RS- { totalAmount }
+                    </div>
+                    <div className='col-2 text-start'>
+                        <button className='btn btn-md app-btn text-bold'
+                                    onClick = { () => navigate('/cart') }>
+                                Go to Cart
+                        </button>
+                    </div>
+                </div>
             </div>
 
             {/* Pagination */}
             <div className='bg-light '>
                 {Array.from(Array(noOfPages), (e, i) => {
-                    return (<span key={i + 1} onClick = {() => setPgIndx(i+1) } > {i+1} </span>)
+                    return (<span className='' key={i + 1} onClick = {() => setPgIndx(i+1) } > {i+1} </span>)
                 })}
             </div>
         </div>

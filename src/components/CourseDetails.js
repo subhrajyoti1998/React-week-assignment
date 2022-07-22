@@ -1,12 +1,12 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 
-function CourseDetails() {
+function CourseDetails( {addItem} ) {
     const location = useLocation();
 
     return (
         <div>
-            <div className='row'>
+            <div className='row py-2'>
                 <div className='col-1'>
 
                 </div>
@@ -22,7 +22,7 @@ function CourseDetails() {
                 <div className='col-1'>
 
                 </div>
-                <div className='col-10 py-4'>
+                <div className='col-10 py-2'>
                     <div className='row'>
                         <div className='col-2'>
                             All Courses
@@ -35,7 +35,7 @@ function CourseDetails() {
                 <div className='col-1'>
 
                 </div>
-                <div className='col-10 py-4'>
+                <div className='col-10 py-2'>
                     <div className='row'>
                         <div className='bg-dark text-white col-11'>
                             {location.state.title} <br /> <br /> <br /> {location.state.author}
@@ -47,13 +47,13 @@ function CourseDetails() {
                 </div>
             </div>
 
-            <div className='row'>
+            <div className='row py-2'>
                 <div className='col-1'>
 
                 </div>
             </div>
 
-            <div className='row'>
+            <div className='row py-2'>
                 <div className='col-1'>
 
                 </div>
@@ -66,24 +66,28 @@ function CourseDetails() {
                             <iframe width="550" height="300"
                                     src="https://www.youtube.com/embed/tWcqSIQr6Ks"
                                     title= {location.state.title}
-                                    frameborder="0"
+                                    frameBorder="2"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen>
+                                    allowFullScreen>
                             </iframe>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className='row'>
-                <div className='col-1'>
+            { /* Add to Cart Button */}
+            <div className='row py-2'>
+                <div className='col-6'>
 
                 </div>
+                <div className='col-5 text-end'>
+                    <button className='btn btn-md app-btn text-bold'
+                            onClick={() => addItem(location.state)}>
+                        Add to Cart
+                    </button>
+                </div>
             </div>
-
-            
-        </div>
-        
+        </div>        
     )
 }
 
