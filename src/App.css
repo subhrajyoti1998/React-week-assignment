@@ -45,8 +45,20 @@
   transition: 0.2s;
 }
 
+.app-btn-star {
+  background-color: #FF6738;
+  color: black;
+  border: 2px;
+}
+
 .app-btn:hover, .app-btn:focus {
   background-color: #ff9b7c;
   color: white;
   transform: scale(1.1);
+}
+
+.app-btn-star:hover, .app-btn-star:focus {
+  background-color: #782308;
+  color: black;
+  border: 2px;
 }

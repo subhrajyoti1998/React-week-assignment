@@ -5,7 +5,8 @@ import MyCartItem from './components/MyCartItem';
 import AllCourses from './components/AllCourses';
 import React, { useState } from 'react'
 import CourseDetails from './components/CourseDetails';
-
+import WishList from './components/WishList';
+import Profile from './components/Profile';
 
 function App() {
 
@@ -20,8 +21,27 @@ function App() {
 
   const [cartItems, setCartItems] = useState([]);
   let addToCart = (item) => {
+    let addedToCartMsgAlert = false;
     if ( ! cartItems.includes(item)) {
+      if (wishListItems.includes(item)) { // Add items from WishList to Cart
+        addedToCartMsgAlert = true;
+        alert('You have successfully saved the Course in Cart.');
+        setWishListItems(wishListItems.filter(record => {
+            return record.id !== item.id;
+        }))
+      }
+
+      if ( !addedToCartMsgAlert) {
+        alert('You have successfully saved the Course in Cart.');
+      }
       setCartItems(prev => [...prev, item]);
+    }
+  }
+
+  const [wishListItems, setWishListItems] = useState([]);
+  let addToWishList = (itemToAdd) => {
+    if ( ! wishListItems.includes(itemToAdd)) {
+      setWishListItems(prev => [...prev, itemToAdd]);
     }
   }
 
@@ -33,13 +53,23 @@ function App() {
           <Routes>
             <Route path = "/" element = {<AllCourses addElement = { addToCart }
                                                       cartItems = { cartItems }
+                                                      addToWishList = { addToWishList }
+                                                      wishListItems = { wishListItems }
                                                       totalAmount = { totalPurchaseAmount } />}/>
             
             <Route path = "/cart" element = {<MyCartItem setCartItems = { setCartItems }
                                                           cartItems = { cartItems }
-                                                          totalAmount = { totalPurchaseAmount } />}/>
+                                                          totalAmount = { totalPurchaseAmount }
+                                                          addToWishList = { addToWishList } />}/>
             
             <Route path = "/courseDetails" element = {<CourseDetails addItem = { addToCart } />}/>
+
+            <Route path = "/wishlist" element = {<WishList wishListItems = { wishListItems }
+                                                            addToCart = { addToCart }
+                                                            cartItems = { cartItems }
+                                                            setWishListItems = { setWishListItems } />}/>
+            
+            <Route path = "/profile" element = {<Profile />}/>
           </Routes>
         </div>
       </BrowserRouter>
