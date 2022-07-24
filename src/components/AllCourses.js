@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 
 const PER_PAGE = 5;
 
-function AllCourses( {addElement, cartItems, totalAmount} ) {
+function AllCourses( {addElement, cartItems, addToWishList, wishListItems, totalAmount} ) {
 
     /*const [currentPage, setCurrentPage] = useState(0);
     const [data, setData] = useState([]);
@@ -25,7 +25,7 @@ function AllCourses( {addElement, cartItems, totalAmount} ) {
     const navigate = useNavigate();
     const [pgIndx, setPgIndx] = useState(1);
 
-    let noOfPages = Records.length % PER_PAGE > 0
+    const noOfPages = Records.length % PER_PAGE > 0
                         ? parseInt(Records.length / PER_PAGE) + 1
                         : parseInt(Records.length / PER_PAGE);
 
@@ -44,6 +44,12 @@ function AllCourses( {addElement, cartItems, totalAmount} ) {
                 return ((record1?.discounted_price || record1?.actual_price || Infinity) 
                         - (record2?.discounted_price || record2?.actual_price || Infinity)) * multiplier;
             })
+        }
+    }
+
+    const addElementToWishList = (course) => {
+        if ( ! cartItems.includes(course) &&  ! wishListItems.includes(course)) {
+            addToWishList(course);
         }
     }
 
@@ -71,11 +77,18 @@ function AllCourses( {addElement, cartItems, totalAmount} ) {
                         </div>
                         <div className='col-3'>
                             <form className="d-flex" role="search">
-                                <input className="form-control me-2"
+                                <input className="form-control"
                                         type = "search"
                                         placeholder="Search"
                                         aria-label = "Search" />
-                                <button className="btn btn-outline-warning" type="submit">Search</button>
+                                <button className="btn btn-sm app-btn"
+                                        type="submit">
+                                        {/* onClick = {  } */}
+                                    <img src='./images/search.svg'
+                                         width={20}
+                                         height={20}
+                                         alt="logo" />
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -104,31 +117,45 @@ function AllCourses( {addElement, cartItems, totalAmount} ) {
                                                         { record.author }
                                                     </div>
                                                     <div className='col-6  p-2'>
-                                                        <div className='d-flex flex-row justify-content-end'>
-                                                            <div className='font-weight-bold mx-3' >
-                                                                { record.discounted_price != null
-                                                                        ? record.discounted_price
-                                                                        : record.actual_price}
+                                                        <div className='row'>
+                                                            <div className='col-1 text-end'>
+                                                                <div className='btn btn-sm'
+                                                                     onClick = {() => addElementToWishList(record) }>
+                                                                    <img src = './images/star.jpg'
+                                                                         width = {20}
+                                                                         height = {28}
+                                                                         alt = "logo"/>
+                                                                </div>
                                                             </div>
-                                                            <div className='text-right mx-3'>
-                                                                <del>{ record.discounted_price != null
-                                                                            ? record.discounted_price
-                                                                            : null }</del>
-                                                            </div>
-                                                            <div className='mx-3'>
-                                                                <button className='btn btn-sm app-btn'
-                                                                        onClick={() => addElement(record)}>
-                                                                    ADD TO CART
-                                                                </button>
-                                                            </div>
-                                                            <div className='mx-3'>
-                                                                <button className='btn btn-sm'
-                                                                        onClick = { () => navigate('/courseDetails', {state : record} ) } >
-                                                                        <img src = './images/go_to_details.svg'
-                                                                            width = {6}
-                                                                            height = {12}
-                                                                            alt = "logo"/>
-                                                                </button>
+                                                            <div className='col-11'>
+                                                                <div className='d-flex flex-row justify-content-end'>
+                                                                    <div className='font-weight-bold mx-3' >
+                                                                        { record.discounted_price != null
+                                                                                ? record.discounted_price
+                                                                                : record.actual_price}
+                                                                    </div>
+                                                                    <div className='text-right mx-3'>
+                                                                        <del> { record.discounted_price != null
+                                                                                    ? record.discounted_price
+                                                                                    : null } </del>
+                                                                    </div>
+                                                                    <div className='mx-3'>
+                                                                        <button className='btn btn-sm app-btn'
+                                                                                onClick={() => addElement(record)}>
+                                                                            ADD TO CART
+                                                                        </button>
+                                                                    </div>
+                                                                    <div className='mx-3'>
+                                                                        <button className='btn btn-sm'
+                                                                                onClick = { () => navigate('/courseDetails',
+                                                                                {state : record} ) } >
+                                                                            <img src = './images/go_to_details.svg'
+                                                                                width = {6}
+                                                                                height = {12}
+                                                                                alt = "logo"/>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -175,7 +202,7 @@ function AllCourses( {addElement, cartItems, totalAmount} ) {
                 </div>
                 <div className='row p-2'>
                     <div className='col-10 text-end px-4'>
-                        RS- { totalAmount }
+                        RS- { totalAmount() }
                     </div>
                     <div className='col-2 text-start'>
                         <button className='btn btn-md app-btn text-bold'
@@ -187,9 +214,13 @@ function AllCourses( {addElement, cartItems, totalAmount} ) {
             </div>
 
             {/* Pagination */}
-            <div className='bg-light '>
+            <div className='bg-light btn-sm app-btn-star'>
                 {Array.from(Array(noOfPages), (e, i) => {
-                    return (<span className='' key={i + 1} onClick = {() => setPgIndx(i+1) } > {i+1} </span>)
+                    return (<span className='btn btn-lg'
+                                  key={i + 1}
+                                  onClick = {() => setPgIndx(i+1) } >
+                                {i+1}
+                            </span>)
                 })}
             </div>
         </div>
